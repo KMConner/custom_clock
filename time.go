@@ -19,3 +19,7 @@ func (t Time) Format(format string) string {
 	tt := t.t
 	return tt.In(loc).Format(format)
 }
+
+func (t Time) Sub(t1 Time) time.Duration {
+	return t.t.Sub(t1.t)
+}
