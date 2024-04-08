@@ -1,6 +1,7 @@
 package custom_clock
 
 import (
+	"context"
 	"time"
 
 	"go.uber.org/atomic"
@@ -40,8 +41,13 @@ func (c *Clock) Now() Time {
 	return c.convertFromActualTime(time.Now())
 }
 
-func (c *Clock) SleepUntil(t Time) {
-	time.Sleep(c.calculateRealDuration(time.Now(), t))
+func (c *Clock) SleepUntil(ctx context.Context, t Time) error {
+	select {
+	case <-ctx.Done():
+		return ctx.Err()
+	case <-time.After(c.calculateRealDuration(time.Now(), t)):
+		return nil
+	}
 }
 
 func (c *Clock) calculateRealDuration(nowReal time.Time, until Time) time.Duration {
