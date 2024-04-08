@@ -1,4 +1,4 @@
-module github.com/KMConner/custom_timer
+module github.com/KMConner/custom_clock
 
 go 1.22.0
 

@@ -1,4 +1,4 @@
-package custom_timer
+package custom_clock
 
 import (
 	"time"
